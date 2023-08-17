@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+
+class arrayy
+{
+public:
+    int arr[6] = { 2, 3, 1, 5, 7, 8 };
+
+    void merge(int l, int m, int r)
+    {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+
+        int arr1[n1];
+        int arr2[n2];
+
+        for (int i = 0; i < n1; ++i)
+            arr1[i] = arr[l + i];
+        for (int j = 0; j < n2; ++j)
+            arr2[j] = arr[m + 1 + j];
+
+        int a = 0;
+        int b = 0;
+        int o = l;
+
+        while (a < n1 && b < n2)
+        {
+            if (arr1[a] <= arr2[b])
+            {
+                arr[o] = arr1[a];
+                a++;
+            }
+            else {
+                arr[o] = arr2[b];
+                b++;
+            }
+            o++;
+        }
+
+        while (a < n1) {
+            arr[o] = arr1[a];
+            a++;
+            o++;
+        }
+
+        while (b < n2) {
+            arr[o] = arr2[b];
+            b++;
+            o++;
+        }
+    }
+
+    void mergeSort(int l, int r)
+    {
+        if (l < r) {
+            int m = l + (r - l) / 2;
+
+            mergeSort(l, m);
+            mergeSort(m + 1, r);
+
+            merge(l, m, r);
+        }
+    }
+
+    void print()
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main()
+{
+    arrayy obj;
+
+    obj.mergeSort(0, 5);
+    obj.print();
+
+    return 0;
+}
